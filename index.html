@@ -978,10 +978,15 @@
     function toggle(btn) {
       const item = btn.closest('.acc-item');
       const isOpen = item.classList.contains('open');
-      // close all
       document.querySelectorAll('.acc-item.open').forEach(el => el.classList.remove('open'));
-      // open clicked if it wasn't open
-      if (!isOpen) item.classList.add('open');
+      if (!isOpen) {
+        item.classList.add('open');
+        setTimeout(() => {
+          const headerH = document.querySelector('.site-header').offsetHeight;
+          const top = item.getBoundingClientRect().top + window.scrollY - headerH - 12;
+          window.scrollTo({ top, behavior: 'smooth' });
+        }, 50);
+      }
     }
   </script>
 
